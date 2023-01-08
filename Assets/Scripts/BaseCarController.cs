@@ -3,59 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class AxleInfo
+public class WheelColliders
 {
-    public WheelCollider leftWheel;
-    public WheelCollider rightWheel;
-
-    public bool motor; // Приводят ли в движение наш автомобиль?
-    public bool steering; // Будут ли поворачиать наш автомобиль?
+    public WheelCollider FRWheel;
+    public WheelCollider FLWheel;
+    public WheelCollider RRWheel;
+    public WheelCollider RLWheel;
+}
+[System.Serializable]
+public class WheelMeshes
+{
+    public MeshRenderer FRWheel;
+    public MeshRenderer FLWheel;
+    public MeshRenderer RRWheel;
+    public MeshRenderer RLWheel;
 }
 
 public class BaseCarController : MonoBehaviour
-{
-    public List<AxleInfo> axleInfos; // информация о каждой индивидуальной оси
-    public float maxMotorTorque; // макс. крутящий момент, который применяем к каждому колесу
-    public float maxSteerAngle; // макс. угол выворота каждого колеса 
+{    
+    private Rigidbody playerRB;
 
-    // Поиск мешей (визуальных колес)    
-    public void ApplyLocalPositionToVisuals(WheelCollider collider)
+    public WheelColliders wheelColliders;
+    public WheelMeshes wheelMeshes;    
+
+    public float gasInput;
+    public float steerInput;
+
+    public float motorPower;
+    public float speed;
+    public AnimationCurve steeringCurve;
+
+    void Start()
     {
-        if(collider.transform.childCount == 0)
-        {
-            return;
-        }
-
-        Transform visualWheel = collider.transform.GetChild(0);
-
-        Vector3 position;
-        Quaternion rotation;
-        collider.GetWorldPose(out position, out rotation);
-
-        visualWheel.transform.position = position;
-        visualWheel.transform.rotation = rotation;
+        playerRB = gameObject.GetComponent<Rigidbody>();
     }
 
     public void FixedUpdate()
     {
-        float motor = maxMotorTorque * Input.GetAxis("Vertical");
-        float steering = maxSteerAngle * Input.GetAxis("Horizontal");
+        speed = playerRB.velocity.magnitude;
+        CheckInput();
+        ApplyMotor();
+        ApplySteering();
+        ApplyWheelPosition();
+    }
 
-        foreach (AxleInfo axleInfo in axleInfos)
-        {
-            if(axleInfo.steering)
-            {
-                axleInfo.leftWheel.steerAngle = steering;
-                axleInfo.rightWheel.steerAngle = steering;
-            }
-            if(axleInfo.motor)
-            {
-                axleInfo.leftWheel.motorTorque = motor;
-                axleInfo.rightWheel.motorTorque = motor;
-            }
-            ApplyLocalPositionToVisuals(axleInfo.leftWheel);
-            ApplyLocalPositionToVisuals(axleInfo.rightWheel);
-        }
+    void CheckInput()
+    {
+        gasInput = Input.GetAxis("Vertical");
+        steerInput = Input.GetAxis("Horizontal");
+    }
+
+    void ApplyMotor()
+    {
+        wheelColliders.RRWheel.motorTorque = motorPower * gasInput;
+        wheelColliders.RLWheel.motorTorque = motorPower * gasInput;
+    }
+
+    void ApplySteering()
+    {
+        float steeringAngle = steerInput * steeringCurve.Evaluate(speed);
+        wheelColliders.FRWheel.steerAngle = steeringAngle;
+        wheelColliders.FLWheel.steerAngle = steeringAngle;
+    }
+
+    void ApplyWheelPosition()
+    {
+        UpdateWheel(wheelColliders.FRWheel, wheelMeshes.FRWheel);
+        UpdateWheel(wheelColliders.FLWheel, wheelMeshes.FLWheel);
+        UpdateWheel(wheelColliders.RRWheel, wheelMeshes.RRWheel);
+        UpdateWheel(wheelColliders.RLWheel, wheelMeshes.RLWheel);
+    }
+
+    void UpdateWheel(WheelCollider wheelCollider, MeshRenderer wheelMesh)
+    {
+        Vector3 position;
+        Quaternion rotation;
+        wheelCollider.GetWorldPose(out position, out rotation);
+
+        wheelMesh.transform.position = position;
+        wheelMesh.transform.rotation = rotation;
     }
 }
 
