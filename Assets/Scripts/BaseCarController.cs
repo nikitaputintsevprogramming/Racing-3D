@@ -73,8 +73,7 @@ public class BaseCarController : MonoBehaviour
     }
 
     public void FixedUpdate()
-    {
-        speed = playerRB.velocity.magnitude;
+    {        
         CheckInput();
         ApplyMotor();
         ApplyBrake();
@@ -88,12 +87,14 @@ public class BaseCarController : MonoBehaviour
         gasInput = Input.GetAxis("Vertical");
         steerInput = Input.GetAxis("Horizontal");
 
+        speed = playerRB.velocity.magnitude;
+
         float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
         if(movingDirection < -0.5f && gasInput > 0)
         {
             brakeInput = Mathf.Abs(gasInput);
         }
-        if(movingDirection > 0.5f && gasInput < 0)
+        else if(movingDirection > 0.5f && gasInput < 0)
         {
             brakeInput = Mathf.Abs(gasInput);
         }
@@ -114,18 +115,20 @@ public class BaseCarController : MonoBehaviour
 
     void ApplyMotor()
     {
-        wheelColliders.RRWheel.motorTorque = motorPower * gasInput;
-        wheelColliders.RLWheel.motorTorque = motorPower * gasInput;
+        wheelColliders.RRWheel.motorTorque = Mathf.Clamp(motorPower * gasInput, 0f, 300f);
+        wheelColliders.RLWheel.motorTorque = Mathf.Clamp(motorPower * gasInput, 0f, 300f);
     }
 
     void ApplySteering()
     {
-        float steeringAngle = steerInput * steeringCurve.Evaluate(speed);
-
-        // Подправляем дрифт боком
-        steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
+        float steeringAngle = steerInput*steeringCurve.Evaluate(speed);       
+        
+        if(slipAngle < 120f)
+        {
+            steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);  
+        }      
+        
         steeringAngle = Mathf.Clamp(steeringAngle, -90f, 90f);
-
         wheelColliders.FRWheel.steerAngle = steeringAngle;
         wheelColliders.FLWheel.steerAngle = steeringAngle;
     }
@@ -145,7 +148,7 @@ public class BaseCarController : MonoBehaviour
         wheelColliders.RRWheel.GetGroundHit(out wheelHits[2]);
         wheelColliders.RLWheel.GetGroundHit(out wheelHits[3]);
 
-        float slipAllowance = 0.5f;        
+        float slipAllowance = 0.1f;        
         
         if(Mathf.Abs(wheelHits[0].sidewaysSlip) + Mathf.Abs(wheelHits[0].forwardSlip) > slipAllowance)
         {

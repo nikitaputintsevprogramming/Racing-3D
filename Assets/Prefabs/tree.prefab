@@ -294,7 +294,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7380464451407431114}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -313,9 +313,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.4255161
-  m_Height: 7.4045725
+  m_Height: 7.275876
   m_Direction: 1
-  m_Center: {x: 0.07404137, y: 7.1634955, z: 0}
+  m_Center: {x: 0.07404137, y: 7.2278438, z: 0}
 --- !u!1 &9212641459815955480
 GameObject:
   m_ObjectHideFlags: 0
