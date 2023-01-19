@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Checkpoint
   - Plane
+  - PlaceSettings
   layers:
   - Default
   - TransparentFX
