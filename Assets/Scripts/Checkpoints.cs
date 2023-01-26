@@ -12,6 +12,8 @@ public class Checkpoints : MonoBehaviour
     // Список собранных чекпоинтов
     [SerializeField] static List<Vector3> collectedCheckpoints = new List<Vector3>();
 
+    [SerializeField] public Transform transfromCheckpoint;
+
     void Start()
     {
         _UI_Controller = FindObjectOfType<UI_Controller>();
@@ -20,9 +22,7 @@ public class Checkpoints : MonoBehaviour
     }
 
     void Update()
-    {
-        print(collectedCheckpoints.Count);
-        print(AllCheckpoints.Length);
+    {        
         if(collectedCheckpoints.Count == AllCheckpoints.Length)
         {
             _UI_Controller.AddLap();
@@ -36,14 +36,20 @@ public class Checkpoints : MonoBehaviour
         if(other.gameObject.tag == "Checkpoint" && !IsCheckpointCollected(other.gameObject.transform.position))
         {
             collectedCheckpoints.Add(other.gameObject.transform.position);    
-            other.gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.green);     
+            // other.gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.green);  
+
+            transfromCheckpoint = other.gameObject.transform;
         }
 
         if(other.gameObject.tag == "Plane")
         {
             if(collectedCheckpoints.Count > 0)
             {
-                transform.position = collectedCheckpoints[collectedCheckpoints.Count - 1];                 
+                transform.position = collectedCheckpoints[collectedCheckpoints.Count - 1];     
+
+                // Исправляем положение, поворот, скорость нашего автомобиля
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;      
+                gameObject.transform.rotation = transfromCheckpoint.rotation;      
             }
             else
             {

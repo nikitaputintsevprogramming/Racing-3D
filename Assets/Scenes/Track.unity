@@ -218,6 +218,7 @@ RectTransform:
   m_Children:
   - {fileID: 259329325}
   - {fileID: 1552579256}
+  - {fileID: 542160890}
   - {fileID: 942689203}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -241,7 +242,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textLaps: {fileID: 0}
   textTimer: {fileID: 0}
+  textBestTimeOfLap: {fileID: 0}
   countLaps: 0
+  time: 0
+  StartTime: 0
+  BestTime: 0
+  BestLap: 0
+  TimesOfLaps: []
 --- !u!1001 &24332338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -689,10 +696,10 @@ RectTransform:
   m_Father: {fileID: 16668207}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.572, y: 0}
-  m_AnchorMax: {x: 0.67756253, y: 0.18422222}
-  m_AnchoredPosition: {x: -1.5, y: 0.5}
-  m_SizeDelta: {x: -3, y: 1}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -721.9199, y: -980.02}
+  m_SizeDelta: {x: 199.68, y: 199.96002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259329326
 MonoBehaviour:
@@ -826,7 +833,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280658654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.37, y: 0.7, z: 17.58}
+  m_LocalPosition: {x: -9.12, y: 1.77, z: 14.49}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1018,6 +1025,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 50a572270b9d8004eba13a0c7b3c8bd2, type: 2}
+  - {fileID: 2100000, guid: 50a572270b9d8004eba13a0c7b3c8bd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1047,6 +1055,86 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529524762}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &542160889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542160890}
+  - component: {fileID: 542160892}
+  - component: {fileID: 542160891}
+  m_Layer: 5
+  m_Name: BestTimeOfLap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &542160890
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542160889}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 16668207}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.3635834, y: 0.8116756}
+  m_AnchorMax: {x: 0.67600006, y: 1}
+  m_AnchoredPosition: {x: 0.56848145, y: 1.6660767}
+  m_SizeDelta: {x: -1.699997, y: -3.3322}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &542160891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542160889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 8fc4b82eee05f9d429c3abe0aeb7cc85, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Best time of lap: 0'
+--- !u!222 &542160892
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542160889}
+  m_CullTransparentMesh: 1
 --- !u!4 &577560435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5164116393937370795, guid: dd0831f60632baf4492b92858d493b29, type: 3}
@@ -1264,14 +1352,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720421584}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -37.089996, y: 0, z: -43.58}
   m_LocalScale: {x: 8, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 443478701}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &720421586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1757,12 +1845,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 16668207}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.47500002, y: 0}
-  m_AnchorMax: {x: 0.572, y: 0.18422222}
-  m_AnchoredPosition: {x: 0, y: 0.5}
-  m_SizeDelta: {x: 14, y: 1}
+  m_AnchorMax: {x: 0.57263774, y: 0.18422222}
+  m_AnchoredPosition: {x: -0.44540405, y: 0.5}
+  m_SizeDelta: {x: 13.109192, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &942689204
 MonoBehaviour:
@@ -2110,14 +2198,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320672403}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 8, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 443478701}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &1320672405
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3635,6 +3723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllCheckpoints: []
+  transfromCheckpoint: {fileID: 0}
 --- !u!23 &7617412238724891027
 MeshRenderer:
   m_ObjectHideFlags: 0
