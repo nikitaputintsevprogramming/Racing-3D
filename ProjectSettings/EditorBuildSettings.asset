@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Track.unity
+    path: Assets/Scenes/RideOnTime.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/FreeRide.unity
+    guid: 183f176d9c3358640afcf5437aae29e2
   m_configObjects: {}

@@ -72,12 +72,12 @@ public class BaseCarController : MonoBehaviour
         Quaternion.identity, wheelColliders.RLWheel.transform).GetComponent<ParticleSystem>();
     }
 
-    public void FixedUpdate()
+    public void Update()
     {        
         CheckInput();
         ApplyMotor();
-        ApplyBrake();
         ApplySteering();
+        ApplyBrake();       
         CheckParticles();
         ApplyWheelPosition();
     }
@@ -86,10 +86,14 @@ public class BaseCarController : MonoBehaviour
     {
         gasInput = Input.GetAxis("Vertical");
         steerInput = Input.GetAxis("Horizontal");
+        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity-transform.forward);
 
         speed = playerRB.velocity.magnitude;
 
+      
         float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
+        
+        
         if(movingDirection < -0.5f && gasInput > 0)
         {
             brakeInput = Mathf.Abs(gasInput);
@@ -115,8 +119,8 @@ public class BaseCarController : MonoBehaviour
 
     void ApplyMotor()
     {
-        wheelColliders.RRWheel.motorTorque = Mathf.Clamp(motorPower * gasInput, 0f, 300f);
-        wheelColliders.RLWheel.motorTorque = Mathf.Clamp(motorPower * gasInput, 0f, 300f);
+        wheelColliders.RRWheel.motorTorque = Mathf.Clamp(motorPower * gasInput, -300f, 300f);
+        wheelColliders.RLWheel.motorTorque = Mathf.Clamp(motorPower * gasInput, -300f, 300f);
     }
 
     void ApplySteering()

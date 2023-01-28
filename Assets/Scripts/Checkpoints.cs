@@ -53,14 +53,11 @@ public class Checkpoints : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("Track");
+                SceneManager.LoadScene("RideOnTime");
             }            
         }
 
-        if(other.gameObject.tag == "PlaceSettings")
-        {
-            SceneManager.LoadScene("Track");
-        }
+        ChangeScene(other);
     } 
 
     // Проверяем был ли собран когда-нибудь чекпойнт после предыдущего
@@ -78,5 +75,17 @@ public class Checkpoints : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ChangeScene(Collider other)
+    {        
+        if(other.gameObject.name == "PlaceFreeRide")
+        {            
+            SceneManager.LoadScene("FreeRide");
+        }
+        if(other.gameObject.name == "PlaceRideOnTime")
+        {            
+            SceneManager.LoadScene("RideOntime");
+        }
     }
 }

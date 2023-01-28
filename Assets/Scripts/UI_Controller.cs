@@ -15,7 +15,7 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] public float BestTime;     
     [SerializeField] public int BestLap;     
 
-    [SerializeField] List<float> TimesOfLaps = new List<float>();
+    [SerializeField] static List<float> TimesOfLaps = new List<float>();
 
     void Start()
     {

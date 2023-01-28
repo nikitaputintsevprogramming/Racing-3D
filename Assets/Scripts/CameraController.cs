@@ -10,8 +10,9 @@ public class CameraController : MonoBehaviour
     public Vector3 offset;
     public float speed;
 
-    void Start()
+    public void CreateCar()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerRB = playerTransform.GetComponent<Rigidbody>();
     }
     
